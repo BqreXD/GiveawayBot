@@ -1,4 +1,6 @@
 // MAKE SURE TO ADD YOUR MONGODB PATH! It can be found under 'new WOKCommands(client, 'commands) :)
+// MAKE SURE TO ADD YOUR BOT'S TOKEN! It can be found under config.json :)
+// MAKE SURE TO ADD YOUR GIVEAWAY CHANNEL'S ID! It can be found under giveaway.js :)
 
 const Discord = require('discord.js')
 const client = new Discord.Client()
