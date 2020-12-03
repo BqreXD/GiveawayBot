@@ -1,3 +1,5 @@
+// MAKE SURE TO ADD YOUR MONGODB PATH! It can be found under 'new WOKCommands(client, 'commands) :)
+
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const WOKCommands = require('wokcommands')
