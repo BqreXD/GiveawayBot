@@ -23,3 +23,7 @@ Place all of the files in, and start customizing the different sections to your 
 * Giveaway Channel (The channel giveaways will be sent to - Can be found in giveaway.js)
 
 The command will not work without you editing the code as above ^
+
+# Contact:
+Discord - @Bqre#0001 (Prefered)
+Twitter - @BqreXD
