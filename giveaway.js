@@ -1,3 +1,5 @@
+// MAKE SURE TO PASTE YOUR ID FOR THE GIVEAWAY CHANNEL! I have placed a comment next to it so you can find it easily :)
+
 const Discord = require('discord.js')
 const ms = require('ms')
 
@@ -87,66 +89,84 @@ module.exports = {
                                     };
 
                                     message.awaitReactions(filter2, {
-                                        max: 1,
-                                        time: 30000,
-                                        errors: ['time']
-                                    })
-                                    .then(collected => {
-                                        const reaction = collected.first();
+                                            max: 1,
+                                            time: 30000,
+                                            errors: ['time']
+                                        })
+                                        .then(collected => {
+                                            const reaction = collected.first();
 
-                                        if (reaction.emoji.name === '✔') {
-                                            const giveawayChannel = message.guild.channels.cache.get('784063918611759125')
-                                            giveawayChannel.send(Embed).then(message => {
-                                                message.react('🎁')
-                                                const filter2 = (reaction, user) => {
-                                                    return reaction.emoji.name === '🎁' && user.id != bot;
-                                                };
-            
-                                                const collector = message.createReactionCollector(filter2, { time: milliseconds });
-                                                collector.on('collect', (reaction, user) => {
-                                                    console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
-                                                        giveawayMembers.push(user.username)
-                                                })
-                                                var giveawayTimer = setInterval(function(){
-                                                    milliseconds = milliseconds - 10000
-                                                    time = ms(milliseconds, {
-                                                        long: true
+                                            if (reaction.emoji.name === '✔') {
+                                                const giveawayChannel = message.guild.channels.cache.get('channelId') // The ID of the Channel giveaways will be sent to!
+                                                giveawayChannel.send(Embed).then(message => {
+                                                    message.react('🎁')
+                                                    const filter2 = (reaction, user) => {
+                                                        return reaction.emoji.name === '🎁' && user.id != bot;
+                                                    };
+
+                                                    const collector = message.createReactionCollector(filter2, {
+                                                        time: milliseconds
+                                                    });
+                                                    collector.on('collect', (reaction, user) => {
+                                                        console.log(`Collected ${reaction.emoji.name} from ${user.tag}`);
+                                                        giveawayMembers.push(user)
                                                     })
-                                                    const EmbedUpdated = new Discord.MessageEmbed()
-                                                    .setTitle(`New giveaway: ${title}`)
-                                                    .setDescription(`Time remaining: ${time}`)
-                                                    .setFooter('Bot created by Bqre#0001', '\nhttps://i.imgur.com/trvzFSz.png')
-                                                    .setAuthor(`Giveaway by: ${authorName}`, author1.displayAvatarURL({
-                                                        format: "png",
-                                                        dynamic: true
-                                                    }))
-                                                    .setThumbnail('https://i.imgur.com/BFPl9WB.png')
-                                                    .setColor(3426654)
-                                                    message.edit(EmbedUpdated)
-
-                                                    if (milliseconds === 0) {
-                                                        const randomIndex = Math.floor(Math.random() * giveawayMembers.length)
-                                                        const winner = giveawayMembers[randomIndex]
-                                                        const EmbedUpdated2 = new Discord.MessageEmbed()
-                                                        .setTitle('🎁 GIVEAWAY ENDED! 🎁')
-                                                        .setDescription(`Winner: ${winner}!!`)
-                                                        .setFooter('Thanks everyone for participating!')
-                                                        .setAuthor(`Giveaway by: ${authorName}`, author1.displayAvatarURL({
-                                                            format: "png",
-                                                            dynamic: true
-                                                        }))
-                                                        .setThumbnail('https://i.imgur.com/BFPl9WB.png')
-                                                        .setColor(3426654)
-                                                        message.edit(EmbedUpdated2)
-                                                        message.channel.send(`The winner of the ${title} giveaway is ${winner}! Congratulations! 🥳`)
-                                                        clearInterval(giveawayTimer)
-                                                    }
-                                                }, 10000);
-                                            })
-                                        } else if (reaction.emoji.name === '❌') {
-                                            return message.channel.send('Cancelled.')
-                                        }
-                                    })
+                                                    var giveawayTimer = setInterval(function () {
+                                                        milliseconds = milliseconds - 10000
+                                                        time = ms(milliseconds, {
+                                                            long: true
+                                                        })
+                                                        if (milliseconds != 0) {
+                                                            const EmbedUpdated = new Discord.MessageEmbed()
+                                                                .setTitle(`New giveaway: ${title}`)
+                                                                .setDescription(`Time remaining: ${time}`)
+                                                                .setFooter('Bot created by Bqre#0001', '\nhttps://i.imgur.com/trvzFSz.png')
+                                                                .setAuthor(`Giveaway by: ${authorName}`, author1.displayAvatarURL({
+                                                                    format: "png",
+                                                                    dynamic: true
+                                                                }))
+                                                                .setThumbnail('https://i.imgur.com/BFPl9WB.png')
+                                                                .setColor(3426654)
+                                                            message.edit(EmbedUpdated)
+                                                        } else {
+                                                            if (giveawayMembers.length < 2) {
+                                                                const EmbedUpdated2 = new Discord.MessageEmbed()
+                                                                .setTitle('🎁 GIVEAWAY ENDED! 🎁')
+                                                                .setDescription(`Unfortunately, not enough people have entered, therefore the giveaway was closed.`)
+                                                                .setAuthor(`Giveaway by: ${authorName}`, author1.displayAvatarURL({
+                                                                    format: "png",
+                                                                    dynamic: true
+                                                                }))
+                                                                .setThumbnail('https://i.imgur.com/Et8UgIB.png')
+                                                                .setColor(3426654)
+                                                            message.edit(EmbedUpdated2)
+                                                                giveawayMembers = []
+                                                                clearInterval(giveawayTimer)
+                                                            } else {
+                                                                const randomIndex = Math.floor(Math.random() * giveawayMembers.length)
+                                                                const winner = giveawayMembers[randomIndex]
+                                                                const EmbedUpdated2 = new Discord.MessageEmbed()
+                                                                    .setTitle('🎁 GIVEAWAY ENDED! 🎁')
+                                                                    .setDescription(`Winner: ${winner}!!`)
+                                                                    .setFooter('Thanks everyone for participating!')
+                                                                    .setAuthor(`Giveaway by: ${authorName}`, author1.displayAvatarURL({
+                                                                        format: "png",
+                                                                        dynamic: true
+                                                                    }))
+                                                                    .setThumbnail('https://i.imgur.com/BFPl9WB.png')
+                                                                    .setColor(3426654)
+                                                                message.edit(EmbedUpdated2)
+                                                                message.channel.send(`The winner of the ${title} giveaway is ${winner}! Congratulations! 🥳`)
+                                                                giveawayMembers = []
+                                                                clearInterval(giveawayTimer)
+                                                            }
+                                                        }
+                                                    }, 10000);
+                                                })
+                                            } else if (reaction.emoji.name === '❌') {
+                                                return message.channel.send('Cancelled.')
+                                            }
+                                        })
                                 })
                             }
                         }
